@@ -1,0 +1,68 @@
+I'm trying to create a front-end application that presents the user with a textbox where they can list comma-separated items they usually eat for lunch. Once that's entered, the user has to click the "Check If Too Much" button.
+
+I'm a beginner, don't have a great grasp of Angular yet. My program doesn't work. For one, the expressions are not being recognized when I interpolate them in HTML. Not sure why.
+
+I think there may be something wrong with the placement of my directives, but not really sure, could really use some help.
+
+(function () {
+'use-strict';
+
+angular.module('lunchCheck', [])
+  .controller('LunchCheckController', function ($scope) {
+
+
+    $scope.numberitems = function () {
+      var itemstring = $scope.items
+      var lunchItems = itemstring.split(",")
+      return length.lunchItems
+    };
+
+    $scope.statement = function () {
+      if ($scope.numberitems==0) {
+        return "Please enter data first!"
+      }
+      else if (0<$scope.numberitems<5) {
+        return "Enjoy!"
+      }
+      else if ($scope.numberitems>4) {
+        return "Too much!"
+      }
+    };
+
+  });
+
+})();
+<!doctype html>
+<html lang="en" ng-app="LunchCheck">
+  <head>
+    <title>Lunch Checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <style>
+      .message { font-size: 1.3em; font-weight: bold; }
+    </style>
+  </head>
+<body>
+   <div class="container" ng-controller="LunchCheckController">
+     <h1>Lunch Checker</h1>
+
+         <div class="form-group">
+             <input id="lunch-menu" type="text"
+             placeholder="list comma separated dishes you usually have for lunch"
+             class="form-control"
+             ng-model="items">
+         </div>
+
+         <div class="form-group">
+             <button
+             class="btn btn-default"
+             ng-click="updateStatement()">Check If Too Much</button>
+         </div>
+
+         <div class="form-group message" >
+           {{statement}}
+         </div>
+   </div>
+
+</body>
+</html>
